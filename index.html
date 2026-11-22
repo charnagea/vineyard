@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dealul Viei — Vineyard Record</title>
+<style>
+:root{
+  --bg:#faf7f2; --card:#ffffff; --ink:#2a2422; --muted:#6f6560; --line:#e7dfd6;
+  --wine:#7a1f3d; --wine-soft:#f6e9ee; --leaf:#4f6b2d; --leaf-soft:#eef3e4;
+  --warn:#9a5b00; --warn-soft:#fff4e0; --bad:#a3261b; --bad-soft:#fdeceb;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header{background:var(--wine);color:#fff;padding:28px 20px 22px}
+header .wrap{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.status{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:12px;padding:10px 14px;min-width:220px}
+.status .st{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.02rem}
+.status .dot{width:11px;height:11px;border-radius:50%;background:#7db0ff;box-shadow:0 0 0 0 rgba(125,176,255,.7);animation:pulse 2.4s ease-in-out infinite}
+.status .la{font-size:.85rem;opacity:.9;margin-top:4px}
+.status .la b{font-weight:600}
+@keyframes pulse{0%{opacity:1;box-shadow:0 0 0 0 rgba(125,176,255,.7)}50%{opacity:.45;box-shadow:0 0 0 7px rgba(125,176,255,0)}100%{opacity:1;box-shadow:0 0 0 0 rgba(125,176,255,0)}}
+@media (prefers-reduced-motion:reduce){.status .dot{animation:none}}
+header h1{margin:0 0 4px;font-size:1.7rem;letter-spacing:.2px}
+header p{margin:0;opacity:.85}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav .wrap{max-width:1000px;margin:0 auto;padding:0 12px}
+nav a{display:inline-block;padding:12px 10px;color:var(--wine);text-decoration:none;font-weight:600;font-size:.92rem}
+nav a:hover{text-decoration:underline}
+main{max-width:1000px;margin:0 auto;padding:16px 16px 60px}
+section{margin-top:34px}
+h2{font-size:1.35rem;margin:0 0 12px;color:var(--wine);border-bottom:2px solid var(--wine-soft);padding-bottom:6px}
+h3{font-size:1.08rem;margin:22px 0 8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card .k{font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.card .v{font-size:1.25rem;font-weight:700;margin-top:2px}
+.card .s{font-size:.85rem;color:var(--muted)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:6px;padding:10px 14px;margin:12px 0}
+.good{background:var(--leaf-soft);border-left:4px solid var(--leaf);border-radius:6px;padding:10px 14px;margin:12px 0}
+.badnote{background:var(--bad-soft);border-left:4px solid var(--bad);border-radius:6px;padding:10px 14px;margin:12px 0}
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f3ede6;font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr.star td:first-child{font-weight:700;color:var(--wine)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:999px;margin:1px 2px 1px 0;white-space:nowrap}
+.t-frac{background:#e8eef8;color:#2b4a7a}
+.t-irac{background:#f3e8f8;color:#5d2b7a}
+.t-done{background:var(--leaf-soft);color:var(--leaf)}
+.t-open{background:var(--warn-soft);color:var(--warn)}
+.t-part{background:#eef0f2;color:#4a5560}
+.warn{color:var(--warn);font-weight:700}
+ol li,ul li{margin:4px 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:10px 0}
+details summary{cursor:pointer;padding:12px 16px;font-weight:700}
+details > div{padding:0 16px 12px}
+.year{display:grid;grid-template-columns:90px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.year .y{font-size:1.6rem;font-weight:800;color:var(--wine)}
+.muted{color:var(--muted)}
+footer{max-width:1000px;margin:0 auto;padding:20px 16px 40px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+@media (max-width:560px){.year{grid-template-columns:1fr}.year .y{font-size:1.3rem}header h1{font-size:1.4rem}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div>
+    <h1>Dealul Viei — Vineyard Record</h1>
+    <p>Chasselas · Buzău, Romania · plus the Bragadiru garden vine · last updated 22 Nov 2026</p>
+  </div>
+  <div class="status" aria-live="polite">
+    <div class="st"><span class="dot" aria-hidden="true"></span>Status: Dormant</div>
+    <div class="la"><b>Last action:</b> Dormant copper wash · 22 Nov 2026</div>
+  </div>
+</div></header>
+
+<nav><div class="wrap">
+  <a href="#years">Years</a><a href="#y2026">2026 season</a><a href="#problems">Problems</a><a href="#cellar">Yield &amp; cellar</a><a href="#y2027">2027 programme</a><a href="#doses">Doses</a><a href="#log">Spray log</a><a href="#winter">Winter jobs</a><a href="#open">Open items</a>
+</div></nav>
+
+<main>
+
+<section id="plot">
+  <div class="cards">
+    <div class="card"><div class="k">Area</div><div class="v">1,400 m²</div><div class="s">0.14 ha (not 728 m²)</div></div>
+    <div class="card"><div class="k">Rows</div><div class="v">4 × 91 m</div><div class="s">~3.85 m apart</div></div>
+    <div class="card"><div class="k">Variety</div><div class="v">Chasselas</div><div class="s">~25-year-old vines</div></div>
+    <div class="card"><div class="k">Normal yield</div><div class="v">2–3 t</div><div class="s">2027 target ~1 t</div></div>
+    <div class="card"><div class="k">Spray ceiling</div><div class="v">110 L</div><div class="s">11 × 10-L tanks</div></div>
+    <div class="card"><div class="k">Row 4</div><div class="v">Shaded</div><div class="s">~3 °Brix behind Row 1</div></div>
+  </div>
+</section>
+
+<section id="years">
+  <h2>Year by year</h2>
+  <div class="year">
+    <div class="y">2026</div>
+    <div>
+      <strong>Heavy disease year.</strong> Every spray dosed on the wrong area (728 m²), so roughly half rate, and on a monthly cadence. Downy mildew across ~80% of the vineyard in July, black rot mummies on almost every vine by late August, powdery mildew on the bunch stems and Botrytis at harvest. About 90% of clusters were affected to some degree.<br>
+      <span class="muted">Harvest 19 Sep · ~150 L of must at 20.2 °Brix, pH 3.36 · ~120 L of wine after racking · dry on 5 Oct at ≈12% ABV.</span>
+    </div>
+  </div>
+  <div class="year">
+    <div class="y">2027</div>
+    <div>
+      <strong>Plan: full rates on 1,400 m², 8 spray sessions, a 10–14-day cadence through bloom.</strong> Target ~1 t of fruit. Sanitation over winter, Tebustar added early against black rot, two Mospilan sprays against the grape berry moth.
+    </div>
+  </div>
+</section>
+
+<section id="y2026">
+  <h2>2026 season</h2>
+  <div class="tbl"><table>
+    <tr><th>Date</th><th>What happened</th><th>Note</th></tr>
+    <tr><td>Spring–early summer</td><td>Wet. Roughly monthly sprays, all dosed on 728 m²</td><td>Downy and black rot infections established in June–July</td></tr>
+    <tr><td>Late July</td><td>Downy across ~80% of the vineyard; black rot running alongside, not yet recognised</td><td></td></tr>
+    <tr><td>26 Jul</td><td>Aliette WG 80 + Tebustar EW</td><td>~half rate</td></tr>
+    <tr><td>~26–27 Jul</td><td>Véraison begins</td><td></td></tr>
+    <tr><td>Late Jul–Aug</td><td>Hot and dry; heat warnings 34–37 °C around 20–22 Aug</td><td>Downy stopped; clean regrowth; no water stress</td></tr>
+    <tr><td>14 Aug</td><td>14.6 °Brix (mixed sample)</td><td></td></tr>
+    <tr><td>15 Aug</td><td>Universalis + Switch (73 g in 70 L); canopy trimmed, rows mowed</td><td>~half rate; last powdery-active spray of the year</td></tr>
+    <tr><td>Late Aug</td><td>Hard, dark-purple mummies on almost every vine → black rot confirmed</td><td>Damage dated from June–July</td></tr>
+    <tr><td>5 Sep</td><td>Row 1 = 20.0 °Brix, Row 4 = 17.0 °Brix; Teldor 10 mL per 10 L</td><td></td></tr>
+    <tr><td>September</td><td>Warm, dry, heat warnings mid-month</td><td>Ideal powdery weather</td></tr>
+    <tr><td>19 Sep</td><td>Selective pick. Botrytis and black rot in the clusters, powdery on the bunch stems</td><td>Picked at 33 °C; fruit sat in bags until evening</td></tr>
+    <tr><td>20 Sep</td><td>Pressed ~150 L of must, 20.2 °Brix, pH 3.36</td><td>~120 L after racking</td></tr>
+    <tr><td>5 Oct</td><td>Dry: hydrometer ≈ 0.992, ≈ 12% ABV</td><td></td></tr>
+    <tr><td>22 Nov</td><td>Dormant wash: Coppermax 112 g in ~45 L; bunches cut off the vines and left in the row centres</td><td>First full-rate spray on 1,400 m²</td></tr>
+    <tr><td>Bragadiru</td><td>Powdery berry scarring; black rot leaf spots and mummies (cleared by 22 Nov)</td><td>Sprayed on Buzău's dates — too late for that site</td></tr>
+  </table></div>
+</section>
+
+<section id="problems">
+  <h2>Problems and lessons</h2>
+  <h3>What went wrong in 2026 — ranked</h3>
+  <ol>
+    <li><strong>Half-rate sprays.</strong> The 728 m² figure halved every dose and every water volume.</li>
+    <li><strong>Monthly cadence across the critical window.</strong> Berries are susceptible to powdery and black rot from pre-bloom to ~4–5 weeks after set; a 30-day gap leaves 2–3 weeks unprotected each cycle.</li>
+    <li><strong>Powdery on the bunch stems → split berries → Botrytis.</strong> The last powdery-active spray (15 Aug, half rate) ran out before a warm, dry September.</li>
+    <li><strong>Black rot read as downy.</strong> Not confirmed until the mummies showed in late August.</li>
+    <li><strong>Bragadiru sprayed on Buzău's calendar,</strong> though it runs 1–2 weeks ahead.</li>
+    <li><strong>Misleading signals.</strong> Canopy and Brix looked fine while the crop was lost inside the bunches.</li>
+  </ol>
+  <div class="note"><strong>Possible contributor, unconfirmed:</strong> an agronomist suggested insects play a part. Grape berry moth larvae bore into berries and open them to Botrytis and sour rot. No insect damage was recorded in 2026 — check clusters for webbing and bored berries in 2027.</div>
+  <div class="good"><strong>What went right:</strong> healthy vines with vigorous clean regrowth; sorting kept the must clean; pH 3.36 without acid; the ferment finished dry and clean.</div>
+
+  <details><summary>Disease field guide</summary><div>
+  <div class="tbl"><table>
+    <tr><th>Disease</th><th>What it looks like</th><th>Quick test</th><th>Weather</th><th>Control</th></tr>
+    <tr><td>Downy mildew</td><td>Tan-brown patches stopping at the veins; white down underneath</td><td>Down after a humid night</td><td>Free water on leaves</td><td>Phosphonate / oxathiapiprolin + folpet, dithianon, copper</td></tr>
+    <tr><td>Powdery mildew</td><td>Grey-white powder on stems; netting on berry skin</td><td>Powder wipes off</td><td>No rain needed; 21–30 °C, shade</td><td>Sulfur every 7–10 d, or DMI/QoI/SDHI; open canopy</td></tr>
+    <tr><td>Black rot</td><td>Round tan leaf spots with dark border; hard, dark-purple mummies</td><td>Mummy won't squash</td><td>Rain</td><td>Sanitation + tebuconazole / azoxystrobin / dithianon. Sulfur does nothing</td></tr>
+    <tr><td>Botrytis</td><td>Soft, grey, furry berries, starting at splits</td><td>Grey fur</td><td>Humidity, rain</td><td>Intact skins, open fruit zone, Switch + Teldor</td></tr>
+    <tr><td>Sour rot</td><td>Soft, brown, vinegar smell, fruit flies</td><td>Smell</td><td>Warmth + splits</td><td>No spray works — remove bunches</td></tr>
+    <tr><td>Grape berry moth</td><td>Webbing in clusters; caterpillars; bored berries</td><td>Open clusters and look</td><td>2–3 generations, May–Aug</td><td>Mospilan at sessions 5–6; pheromone trap</td></tr>
+  </table></div></div></details>
+</section>
+
+<section id="cellar">
+  <h2>Yield and cellar</h2>
+  <div class="tbl"><table>
+    <tr><th>Year</th><th>Picked</th><th>Must</th><th>°Brix</th><th>pH</th><th>Wine</th><th>Notes</th></tr>
+    <tr><td>2026</td><td>19 Sep</td><td>~150 L</td><td>20.2</td><td>3.36</td><td>~120 L, ≈12% ABV, dry 5 Oct</td><td>Brown but clean (Botrytis oxidation). Oenoferm X-Treme + Superstart; Browin nutrient at 14 °Brix. Racked and sulfited; cleared nicely, tastes good</td></tr>
+    <tr><td>2027</td><td colspan="6" class="muted">Target ~1 t of fruit. Wine rows 20.5 ± 1 °Brix, pH 3.30 ± 0.10. Row 4 for the still at 17 ± 1 °Brix, picked ~2 weeks earlier.</td></tr>
+  </table></div>
+  <h3>Ripening samples</h3>
+  <div class="tbl"><table>
+    <tr><th>Date</th><th>Row</th><th>°Brix</th><th>pH</th></tr>
+    <tr><td>14 Aug 2026</td><td>mixed</td><td>14.6</td><td></td></tr>
+    <tr><td>5 Sep 2026</td><td>Row 1</td><td>20.0</td><td></td></tr>
+    <tr><td>5 Sep 2026</td><td>Row 4</td><td>17.0</td><td></td></tr>
+    <tr><td>20 Sep 2026</td><td>must</td><td>20.2</td><td>3.36</td></tr>
+  </table></div>
+  <p class="muted">2026 curve: ~0.18 °Brix per day mid-Aug to early Sep; véraison + ~55 days to harvest.</p>
+</section>
+
+<section id="y2027">
+  <h2>2027 spray programme — Dealul Viei</h2>
+  <p class="muted">Dates are 2026 reference estimates. Growth stage (BBCH) and weather decide. Amounts are per 10-L tank.</p>
+  <div class="tbl"><table>
+    <tr><th>#</th><th>When</th><th>BBCH</th><th>Tank mix (per 10 L)</th><th>Tanks</th><th>Covers</th></tr>
+    <tr><td>0</td><td>Bud swell, late Mar–mid Apr</td><td>03–05</td><td>Microthiol 38.1 g (+ Coppermax 25.4 g, optional)<br><span class="tag t-frac">M2</span><span class="tag t-frac">M1</span></td><td>3–4</td><td>Erineum mites, overwintering powdery and downy</td></tr>
+    <tr><td>1</td><td>Late Apr–early May</td><td>13–15</td><td>Microthiol 38.1 g + Coppermax 25.4 g + Tebustar 5.0 mL<br><span class="tag t-frac">M2</span><span class="tag t-frac">M1</span><span class="tag t-frac">FRAC 3</span></td><td>4–5</td><td>First powdery and downy cover; early black rot (mummies on the ground)</td></tr>
+    <tr class="star"><td>2 ★</td><td>Late May–early June</td><td>57–60</td><td>Universalis 25.4 mL + Delan Pro 38.1 mL<br><span class="tag t-frac">11 + M4</span><span class="tag t-frac">M9 + P07</span></td><td>6–7</td><td>Downy on flowers, powdery, black rot — most important spray</td></tr>
+    <tr class="star"><td>3 ★</td><td>+10–14 days, mid-June</td><td>68–71</td><td>Tebustar 5.0 mL + Orondis Ultra 8.5 mL (+ Microthiol 38.1 g if &lt;28 °C)<br><span class="tag t-frac">3</span><span class="tag t-frac">49 + 40</span></td><td>8–10</td><td>Peak black rot and powdery; downy</td></tr>
+    <tr class="star"><td>4 ★</td><td>+10–14 days, late June</td><td>73 — not later</td><td>Luna Max 12.7 mL + Delan Pro 38.1 mL (50.9 mL in a wet spell)<br><span class="tag t-frac">7 + 5</span><span class="tag t-frac">M9 + P07</span></td><td>9–10</td><td>Powdery incl. stems, downy, black rot, early Botrytis</td></tr>
+    <tr><td>5</td><td>Mid–late July</td><td>77–79</td><td>Universalis 25.4 mL + Mospilan 3.1 g (+ Microthiol if &lt;28 °C)<br><span class="tag t-frac">11 + M4</span><span class="tag t-irac">IRAC 4A</span></td><td>11</td><td>Stem powdery, downy, black rot tail; berry moth 2nd generation</td></tr>
+    <tr><td>6</td><td>Early August</td><td>81–83</td><td>Switch 12.7 g + Mospilan 3.1 g<br><span class="tag t-frac">9 + 12</span><span class="tag t-irac">IRAC 4A</span></td><td>11, fruit zone</td><td>Botrytis; berry moth 3rd generation</td></tr>
+    <tr><td>7</td><td>≥14 days before picking</td><td>85</td><td>Teldor 12.7 mL<br><span class="tag t-frac">17</span></td><td>11, fruit zone</td><td>Botrytis</td></tr>
+  </table></div>
+  <div class="good"><strong>Downy partner for sessions 2 and 4: Delan Pro</strong> (decided 22 Nov 2026), 38.1 mL per tank. Labelled for downy mildew and black rot on wine grapes; PHI 42 days; max 4 sprays a year.</div>
+  <p><strong>The three sprays that decide the crop</strong> are ★ 2–4: pre-bloom → end of bloom → shot-size berries, 10–14 days apart, late May to early July. That window is where 2026 was lost.</p>
+
+  <details><summary>Contingencies</summary><div><ul>
+    <li><strong>Wet June / black rot before bloom:</strong> session 4 → Universalis + phosphonate partner; session 5 → Microthiol 38.1 g + Folpan 20.3 g + Mospilan 3.1 g.</li>
+    <li><strong>Universalis allowed only once:</strong> session 5 → Microthiol + Folpan + Mospilan.</li>
+    <li><strong>Wet August:</strong> add Orondis Ultra 8.5 mL to session 6 (second and last use).</li>
+    <li><strong>Heatwave on a sulfur day:</strong> drop the sulfur, spray at dawn.</li>
+    <li><strong>Moth flight off-schedule:</strong> move the Mospilan to the flight date; a third moth spray is Laser 240 SC, never a third Mospilan.</li>
+    <li><strong>Product no longer sold or authorised:</strong> rebuild the rotation; don't improvise from the shelf.</li>
+  </ul></div></details>
+
+  <details><summary>Rotation rules</summary><div><ul>
+    <li>A single-site FRAC group at most twice a season, never in consecutive sprays, never above the label maximum.</li>
+    <li>FRAC 11 at sessions 2 and 5 · FRAC 3 at sessions 1 and 3 · IRAC 4A at sessions 5 and 6.</li>
+    <li>Never fosetyl (Aliette, Mikal Flash, Profiler) with copper. Folpet once per tank. No sulfur above ~28–30 °C, none within 6 weeks of picking. No copper after mid-July.</li>
+    <li>No insecticide around bloom; mow flowering cover first.</li>
+  </ul></div></details>
+</section>
+
+<section id="doses">
+  <h2>Doses for 1,400 m²</h2>
+  <p class="muted">Label rate per ha × 0.14 = most for the whole plot. ÷ 11 = per 10-L tank. <span class="warn">⚠️</span> = not yet read off the pack — check before spraying.</p>
+  <div class="tbl"><table>
+    <tr><th>Product</th><th>Rate / ha</th><th>Whole plot</th><th>Per 10-L tank</th><th>Group</th><th>PHI (wine grapes)</th></tr>
+    <tr><td>Microthiol Special</td><td>3.0 kg</td><td>420 g</td><td>38.1 g</td><td>M2</td><td>28 d — stop ≥6 weeks before picking</td></tr>
+    <tr><td>Coppermax <span class="warn">⚠️</span></td><td>2.0 kg</td><td>280 g</td><td>25.4 g</td><td>M1</td><td>21 d — none after mid-July</td></tr>
+    <tr><td>Universalis 593 SC</td><td>2.0 L</td><td>280 mL</td><td>25.4 mL</td><td>11 + M4</td><td>28 d</td></tr>
+    <tr><td>Tebustar EW</td><td>0.4 L</td><td>56 mL</td><td>5.0 mL</td><td>3</td><td>check pack (plan 35 d) · max 2/year</td></tr>
+    <tr><td>Orondis Ultra</td><td>0.67 L</td><td>93.8 mL</td><td>8.5 mL</td><td>49 + 40</td><td>21 d</td></tr>
+    <tr><td>Luna Max SE 275 <span class="warn">⚠️</span></td><td>1.0 L</td><td>140 mL</td><td>12.7 mL</td><td>7 + 5</td><td>14 d (RO) / 35 d (DE) — plan 35 d</td></tr>
+    <tr><td>Switch 62.5 WG</td><td>0.6–1.0 kg</td><td>84–140 g</td><td>7.6–12.7 g</td><td>9 + 12</td><td>21 d</td></tr>
+    <tr><td>Teldor 500 SC</td><td>1.0 L</td><td>140 mL</td><td>12.7 mL</td><td>17</td><td>14 d</td></tr>
+    <tr><td>Mospilan 20 SG</td><td>0.25 kg</td><td>35 g</td><td>3.1 g</td><td>IRAC 4A</td><td><span class="warn">⚠️</span> 0 d vs 10 d — plan 10 d · max 2/year</td></tr>
+    <tr><td>Delan Pro</td><td>3–4 L</td><td>420–560 mL</td><td>38.1–50.9 mL</td><td>M9 + P07</td><td>42 d</td></tr>
+    <tr><td>Folpan 80 WDG (contingency)</td><td>1.6 kg</td><td>224 g</td><td>20.3 g</td><td>M4</td><td>28 d</td></tr>
+    <tr><td>Laser 240 SC (contingency)</td><td>0.15–0.2 L</td><td>21–28 mL</td><td>1.9–2.5 mL</td><td>IRAC 5</td><td>14 d</td></tr>
+  </table></div>
+  <h3>Water by stage</h3>
+  <div class="tbl"><table>
+    <tr><th>Stage</th><th>Tanks</th><th>Water</th></tr>
+    <tr><td>Bud swell (wood only)</td><td>3–4</td><td>30–40 L</td></tr>
+    <tr><td>3–5 leaves</td><td>4–5</td><td>40–50 L</td></tr>
+    <tr><td>Pre-bloom</td><td>6–7</td><td>60–70 L</td></tr>
+    <tr><td>End of bloom → shot-size</td><td>8–10</td><td>80–100 L</td></tr>
+    <tr><td>Bunch closure → harvest</td><td>11</td><td>110 L</td></tr>
+  </table></div>
+</section>
+
+<section id="log">
+  <h2>Spray log</h2>
+  <h3>2027 season</h3>
+  <div class="tbl"><table>
+    <tr><th>Date</th><th>Session</th><th>BBCH</th><th>Products</th><th>Tanks</th><th>Weather</th><th>Notes</th></tr>
+    <tr><td colspan="7" class="muted">None yet.</td></tr>
+  </table></div>
+  <h3>2026 (all dosed on 728 m² — about half rate — except the dormant wash)</h3>
+  <div class="tbl"><table>
+    <tr><th>Date</th><th>Products</th><th>Note</th></tr>
+    <tr><td>Spring–early summer</td><td>Roughly monthly sprays; products not recorded</td><td></td></tr>
+    <tr><td>26 Jul</td><td>Aliette WG 80 + Tebustar EW</td><td></td></tr>
+    <tr><td>15 Aug</td><td>Universalis 593 SC + Switch 62.5 WG (73 g in 70 L)</td><td>Last powdery-active spray</td></tr>
+    <tr><td>5 Sep</td><td>Teldor 500 SC, 10 mL per 10 L</td><td></td></tr>
+    <tr><td>22 Nov</td><td>Coppermax 112 g in ~43–45 L, both sides of every row + trunks</td><td>Dormant wash, full rate</td></tr>
+  </table></div>
+  <h3>Copper ledger</h3>
+  <div class="tbl"><table>
+    <tr><th>Date</th><th>Product</th><th>Copper metal</th><th>Year total</th></tr>
+    <tr><td>22 Nov 2026</td><td>Coppermax 112 g</td><td>56 g</td><td>counts against 2026 (10% of ~560 g)</td></tr>
+    <tr><td>2027</td><td>—</td><td>—</td><td>0 g of ~560 g</td></tr>
+  </table></div>
+</section>
+
+<section id="winter">
+  <h2>Winter jobs (Nov 2026 – Mar 2027)</h2>
+  <div class="tbl"><table>
+    <tr><th>Job</th><th>Status</th><th>Note</th></tr>
+    <tr><td>Mummies, Dealul Viei</td><td><span class="tag t-part">Partly</span></td><td>Cut off the vines; left in the row centres</td></tr>
+    <tr><td>Till the row centres to bury the mummies</td><td><span class="tag t-open">To do</span></td><td>At first grass growth, before bud break; aim ~10 cm deep</td></tr>
+    <tr><td>Mummies, Bragadiru</td><td><span class="tag t-done">Done</span></td><td>Cleared by 22 Nov 2026</td></tr>
+    <tr><td>Dormant copper wash</td><td><span class="tag t-done">Done</span></td><td>22 Nov 2026, Coppermax 112 g</td></tr>
+    <tr><td>2026 wine racked and sulfited</td><td><span class="tag t-done">Done</span></td><td>Cleared nicely, tastes good</td></tr>
+    <tr><td>Pruning to single Guyot + vine count and spacing</td><td><span class="tag t-open">To do</span></td><td>Feb–early Mar, dry days</td></tr>
+    <tr><td>Phosphonate partner chosen</td><td><span class="tag t-done">Done</span></td><td>Delan Pro</td></tr>
+    <tr><td>Ask the agronomist which insect he meant</td><td><span class="tag t-open">To do</span></td><td>Mospilan timing assumes the berry moth</td></tr>
+    <tr><td>Stock check + buying</td><td><span class="tag t-open">To do</span></td><td>Incl. Delan Pro, Orondis Ultra, Mospilan, moth pheromone trap, free-SO₂ kit</td></tr>
+    <tr><td>Help for sessions 2–4</td><td><span class="tag t-open">To do</span></td><td>Late May–early July</td></tr>
+    <tr><td>April check: Switch and Universalis still authorised</td><td><span class="tag t-open">To do</span></td><td></td></tr>
+  </table></div>
+</section>
+
+<section id="open">
+  <h2>Open items</h2>
+  <ol>
+        <li>Vine count and spacing — measure at pruning.</li>
+    <li>Remaining ⚠️ pack values (Coppermax, Luna Max, Universalis max, Tebustar and Mospilan PHI).</li>
+    <li>Who covers sessions 2–4.</li>
+    <li>Switch and Universalis authorisation for 2027 — check in April.</li>
+        <li>Stock left from 2026, with expiry dates.</li>
+    <li>Still capacity; any 2026 wine going to the still.</li>
+    <li>Row-centre tilling before bud break.</li>
+    <li>Which insect the agronomist meant.</li>
+  </ol>
+  <div class="badnote"><strong>Never:</strong> fosetyl products with copper · sulfur above ~28–30 °C · mancozeb (not authorised in the EU) · insecticide around bloom.</div>
+</section>
+
+</main>
+
+<footer>
+  Personal vineyard record, kept from the 2026 review and 2027 playbook (v2.2). Doses are working values — the product label decides what's legal and safe on the plot.
+</footer>
+</body>
+</html>
